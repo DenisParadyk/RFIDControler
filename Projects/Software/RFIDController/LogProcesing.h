@@ -10,28 +10,22 @@
 #include "LogInfo.h"
 #include <windows.h>
 
-
-using std::cout;
-using std::endl;
-
-
 class LogProcesing {
 
 public:
 	
-	bool save(std::string id);
+    bool save(std::string id);
 
 private:
 
-	RTC a;
-	RtcDate date;
-	RtcTime time;
-
-	std::string date2;
-	std::string time2;
-	std::string id;
-	std::string folder;
-	std::string FileName;
+    RTC a;
+    RtcDate date;
+    RtcTime time;
+    std::string date2;
+    std::string time2;
+    std::string id;
+    std::string folder;
+    std::string FileName;
 };
 
 #endif#
