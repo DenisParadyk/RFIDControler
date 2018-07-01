@@ -11,18 +11,18 @@ using namespace std;
 
 struct TTY {
 
-	TTY();
-	virtual ~TTY();
+    TTY();
+    virtual ~TTY();
 
-	bool IsOK() const;
+    bool IsOK() const;
 
-	void Connect(const string& port, int baudrate);
-	void Disconnect();
+    void Connect(const string& port, int baudrate);
+    void Disconnect();
 
-	virtual void Write(const vector<unsigned char>& data);
-	virtual void Read(vector<unsigned char>& data, int size);
+    virtual void Write(const vector<unsigned char>& data);
+    virtual void Read(vector<unsigned char>& data, int size);
 
-	HANDLE m_Handle;
+    HANDLE m_Handle;
 
 };
 

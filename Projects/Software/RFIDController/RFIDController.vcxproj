@@ -116,9 +116,11 @@
     <ClCompile Include="RFID.cpp" />
     <ClCompile Include="RTC.cpp" />
     <ClCompile Include="LogInfo.cpp" />
+    <ClCompile Include="IDInfo.cpp" />
     <ClCompile Include="TTY.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="IDInfo.h" />
     <ClInclude Include="LogInfo.h" />
     <ClInclude Include="LogProcesing.h" />
     <ClInclude Include="RFID.h" />
