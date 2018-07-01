@@ -5,31 +5,26 @@
 #include <cstdlib>
 #include <string>
 #include <time.h>
-
-using std::cout;
-using std::endl;
-
+ 
 struct RtcDate
 {
-	int year;
+    int year;
     int mon;
     int day;
 };
 
 struct RtcTime
 {
-	int hour;
-	int min;
-	int sec;
+    int hour;
+    int min;
+    int sec;
 };
 
 class RTC
-
 {
 public:
-
-	RtcDate getDate();
-	RtcTime getTime();
+    RtcDate getDate();
+    RtcTime getTime();
 };
 
 #endif

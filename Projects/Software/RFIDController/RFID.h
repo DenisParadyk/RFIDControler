@@ -12,14 +12,12 @@
 
 using namespace std;
 
-class RFID {
+class RFID 
+{
 public:
     RFID(int port);
-	string  runID();
+    string  runID();
 
 private:
-
-	
-
-	TTY tty;
+    TTY tty;
 };
