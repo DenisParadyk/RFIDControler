@@ -10,7 +10,7 @@ RFID::RFID(int port)
 string RFID::runID() {
 
 	string id;
- 
+
 	std::vector<unsigned char> the_vectsor;;
 	tty.Read(the_vectsor, 50);
 

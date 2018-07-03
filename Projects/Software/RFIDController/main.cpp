@@ -8,30 +8,72 @@
 #include "LogInfo.h"
 #include "IDInfo.h"
 
+int main() {
+	int port;
+	setlocale(0, "");
+	LogProcesing b;
+	std::string id;
+	std::string name;
+	std::string secondname;
+	std::string newName;
+	std::string newSecondname;
+	IDInfo file("ID.txt");
 
+	cout << "Enter port" << endl;
+	cin >> port;
+	RFID a(port);
+	while (1) {
+		id = a.runID();
+		Sleep(1000);
+		file.readInfo(id, name, secondname);
+		if (id.length() != 0) {
+			Sleep(1000);
+			b.save(id);
+			if (name.length() == 0) {
+				cout << "Enter new name" << endl;
+				cin >> newName;
+				cout << "Enter new secondname" << endl;
+				cin >> newSecondname;
+				name = newName;
+				secondname = newSecondname;
+			}
+			cout << name << " " << secondname << endl;
+			file.saveInfo(id, name, secondname);
+		}
+	}
+
+
+	system("pause");
+
+	return 0;
+}
+
+/*
 int main() {
     int port;
 	LogProcesing b;
 	std::string id;
 	std::string name;
 	std::string secondname;
+	IDInfo file("Id_Names\\ID.txt");
 
 	CreateDirectory("Id_Names", NULL);
-	IDInfo file("Id_Names\\ID.txt");
-	
 
     cout << "Enter port" << endl;
     cin >> port;
     RFID a(port);
     while (1) {
         id = a.runID();
-        if (id.length() != 0) {
-            Sleep(1000);
-            b.save(id);
-			file.saveInfo(id, name, secondname);
-        }
+		if (id.length() != 0) {
+			Sleep(1000);
+			b.save(id);
+			file.readInfo(id, name, secondname);
+		}
+		//file.saveInfo(id, name, secondname);
     }
+	
+
     system("pause");
 
     return 0;
-}
+}*/

@@ -1,5 +1,6 @@
 #include "LogProcesing.h"
-
+#include "LogInfo.h"
+#include "IDInfo.h"
 
 bool LogProcesing::save(std::string id)
 {

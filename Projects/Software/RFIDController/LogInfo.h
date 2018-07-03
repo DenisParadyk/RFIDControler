@@ -14,7 +14,7 @@ class LogInfo {
 
 public:
 	LogInfo(std::string fileName);
-	bool save(std::string date, std::string time, std::string id);
+	bool save(std::string date2, std::string time2, std::string id);
 private:
 	std::string m_fileName;
 };
