@@ -2,7 +2,7 @@
 #include "LogInfo.h"
 #include "IDInfo.h"
 
-bool LogProcesing::save(std::string id)
+bool LogProcesing::save(std::string id, std::string name, std::string secondname)
 {
 	date = a.getDate();
 	time = a.getTime();
@@ -34,7 +34,7 @@ bool LogProcesing::save(std::string id)
 
 	LogInfo file(folder + "\\" + FileName + ".txt");
 
-	if (file.save(date2, time2, id)) {
+	if (file.save(date2, time2, id, name, secondname )) {
 		return true;
 	}
 	return false;

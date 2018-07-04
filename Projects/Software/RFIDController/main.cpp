@@ -25,10 +25,12 @@ int main() {
 	while (1) {
 		id = a.runID();
 		Sleep(1000);
+ 
+		name.erase();
+		secondname.erase();
 		file.readInfo(id, name, secondname);
 		if (id.length() != 0) {
 			Sleep(1000);
-			b.save(id);
 			if (name.length() == 0) {
 				cout << "Enter new name" << endl;
 				cin >> newName;
@@ -36,9 +38,13 @@ int main() {
 				cin >> newSecondname;
 				name = newName;
 				secondname = newSecondname;
+				cout << name << " " << secondname << endl;
+				file.saveInfo(id, name, secondname);
 			}
-			cout << name << " " << secondname << endl;
-			file.saveInfo(id, name, secondname);
+			else {
+				b.save(id, name, secondname);
+			}
+			
 		}
 	}
 

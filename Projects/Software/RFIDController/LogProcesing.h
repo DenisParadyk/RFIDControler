@@ -14,8 +14,7 @@ class LogProcesing {
 
 public:
 	
-    bool save(std::string id);
-
+    bool save(std::string id, std::string name, std::string secondname);
 private:
 
     RTC a;
