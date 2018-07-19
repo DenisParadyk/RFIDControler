@@ -75,7 +75,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\\sqlite;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -112,18 +112,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\sqlite\sqlite3.c" />
     <ClCompile Include="Db.cpp" />
     <ClCompile Include="RFID.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RTC.cpp" />
+    <ClCompile Include="sqlite3.c" />
     <ClCompile Include="TTY.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\sqlite\sqlite3.h" />
     <ClInclude Include="Db.h" />
     <ClInclude Include="RFID.h" />
     <ClInclude Include="RTC.h" />
+    <ClInclude Include="sqlite3.h" />
     <ClInclude Include="TTY.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

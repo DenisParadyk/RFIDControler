@@ -56,7 +56,7 @@ DbError Db::subFunc(string id, string name, string secondname)
 	sqlInsert += "NULL";
 	sqlInsert += ",'";
 	sqlInsert += id;
-	sqlInsert += ",'";
+	sqlInsert += "','";
 	sqlInsert += name;
 	sqlInsert += "','";
 	sqlInsert += secondname;
@@ -73,17 +73,7 @@ DbError Db::subFunc(string id, string name, string secondname)
 	return DbErrorOk;
 }
 
-
-static int callback(void *NotUsed, int argc, char **argv, char **azColName)
-
-{
-	struct tm blob;
-
-	return 0;
-}
-
-#include <iostream>
-
+ 
 DbError Db::select(string id, string &name, string &secondname)
 {
     string table;
@@ -131,10 +121,6 @@ DbError Db::select(string id, string &name, string &secondname)
 			break;
 		}
 	}
-
-
-	std::cout << sqlite3_column_text(ppStmt, 0);
-
 	return DbErrorOk;
 }
 
