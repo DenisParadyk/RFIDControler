@@ -15,28 +15,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    ../../RFIDControler/RFID_Controller/TTY.cpp \
-    ../../RFIDControler/RFID_Controller/RTC.cpp \
-    ../../RFIDControler/RFID_Controller/RFID.cpp \
-    ../../RFIDControler/RFID_Controller/main.cpp \
-    ../../RFIDControler/RFID_Controller/Db.cpp \
-    ../../RFIDControler/RFID_Controller/sqlite3.c
+    ../TTY.cpp \
+    ../RTC.cpp \
+    ../RFID.cpp \
+    ../main.cpp \
+    ../Db.cpp \
+    ../sqlite3.c
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES +=
-
 HEADERS += \
-    ../../RFIDControler/RFID_Controller/TTY.h \
-    ../../RFIDControler/RFID_Controller/sqlite3.h \
-    ../../RFIDControler/RFID_Controller/RTC.h \
-    ../../RFIDControler/RFID_Controller/RFID.h \
-    ../../RFIDControler/RFID_Controller/Db.h
+    ../TTY.h \
+    ../sqlite3.h \
+    ../RTC.h \
+    ../RFID.h \
+    ../Db.h
+INCLUDEPATH += \
+../
 
-INCLUDEPATCH += \
-    ../../RFIDControler/RFID_Controller
-
-DEFINES += LINUX
+DEFINES +=LINUX
+LIBS+=-ldl
