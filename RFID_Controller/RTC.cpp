@@ -18,7 +18,7 @@ RtcDate RTC::getDate()
     RtcDate date;
     date.day = ltm->tm_mday;
     date.mon = 1 + ltm->tm_mon;
-    date.year = 1970 + ltm->tm_year;
+    date.year = 1900 + ltm->tm_year;
 
     return date;
 #endif
@@ -40,7 +40,7 @@ RtcTime RTC::getTime()
     time_t now = time(0);
     tm *ltm = localtime(&now);
     RtcTime time;
-    time.hour = 1 + ltm->tm_hour;
+    time.hour = ltm->tm_hour;
     time.min  = ltm->tm_min;
     time.sec  = ltm->tm_sec;
 
