@@ -1,6 +1,7 @@
 #include "TTY.h"
 #include <iostream>
 #include <assert.h>
+#include <vector>
 
 using namespace std;
 
@@ -142,7 +143,7 @@ void TTY::Disconnect() {
 	if (m_Handle != INVALID_HANDLE_VALUE)
 	{
 		CloseHandle(m_Handle);
-		m_Handle = INVALID_HANDLE_VALUE;
+        m_Handle = INVALID_HANDLE_VALUE;
 	}
 #else
     close(fd);
@@ -161,7 +162,15 @@ void TTY::Write(const vector<unsigned char>& data) {
 		m_Handle = INVALID_HANDLE_VALUE;
 		throw TTYException();
 	}
-#else
+#else  
+    char write_buffer[300];
+    int  bytes_written;
+
+    for (int i = 0; i < data.size(); i++){
+        write_buffer[i] = data[i];
+    }
+
+    bytes_written = write(fd,write_buffer,sizeof(write_buffer));
 
 #endif
 }
@@ -189,19 +198,14 @@ void TTY::Read(vector<unsigned char>& data, int size) {
 #else
     tcflush(fd, TCIFLUSH);
 
-            char read_buffer[32];
-            int  bytes_read = 0;
-            int i = 0;
+    char read_buffer[300];
+    int  bytes_read = 0;
+    int i;
 
-            bytes_read = read(fd,&read_buffer,32);
+        bytes_read = read(fd,&read_buffer,300);
 
-            printf("\n\n  Bytes Rxed -%d", bytes_read);
-            printf("\n\n  ");
-
-
-            for(i=0;i<bytes_read;i++){}
+        for(i = 0; i < bytes_read; i++){
+            data[i] = read_buffer[i];
+        }
 }
 #endif
-
-
-
