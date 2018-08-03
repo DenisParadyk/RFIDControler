@@ -22,7 +22,7 @@ int main() {
 	RTC rtc;
 	
 	cout << "Enter COMport" << endl;
-	cin >> port;
+    cin >> port;
 	RFID a(port);
 
 	db.open();

@@ -5,6 +5,11 @@
 
 #include <vector>
 #include <string>
+#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <termios.h>
 
 using namespace std;
 
@@ -12,7 +17,7 @@ struct TTY {
 
 	TTY();
     virtual ~TTY();
-
+    int fd;
 	bool IsOK() const;
 
 	void Connect(const string& port, int baudrate);
@@ -25,6 +30,8 @@ struct TTY {
 #else
 
 #endif
+private:
+     struct termios m_options;
 };
 
 struct TTYException {

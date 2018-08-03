@@ -3,7 +3,7 @@
 
 RFID::RFID(int port)
 {
-	tty.Connect("COM" + to_string(port), 9600);
+    tty.Connect(to_string(port), 9600);
 }
 
 string RFID::runID() {

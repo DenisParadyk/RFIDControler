@@ -94,8 +94,48 @@ void TTY::Connect(const string& port, int baudrate) {
     }
 #else
 
-#endif
+    if (baudrate == 9600) {
+        baudrate = B9600;
+    } else if (baudrate == 19200){
+        baudrate = B19200;
+    }else if  (baudrate == 38400){
+        baudrate = B38400;
+    }else if  (baudrate == 57600){
+        baudrate = B57600;
+    }else if (baudrate == 115200){
+        baudrate = B115200;
+    }else if (baudrate == 230400){
+        baudrate = B230400;
+    }
+
+
+      fd = open(("/dev/ttyUSB" + port).c_str(), O_RDWR | O_NOCTTY |O_NONBLOCK);
+     if (fd == -1)
+     {
+         throw TTYException();
+     }
+     else{
+         tcgetattr(fd, &m_options);
+                m_options.c_cflag &= ~PARENB;
+                m_options.c_cflag &= ~CSTOPB;
+                m_options.c_cflag &= ~CSIZE;
+                m_options.c_cflag |= CS8;
+                m_options.c_lflag = 0;
+                m_options.c_oflag &= ~OPOST;
+                m_options.c_iflag = 0;
+                m_options.c_iflag &= ~ (INLCR | IGNCR | ICRNL);
+                tcsetattr(fd, TCSANOW, &m_options);
+
+            if (cfsetispeed(&m_options, baudrate) == -1) {
+                throw TTYException();
+            }
+            if (cfsetospeed(&m_options, baudrate) == -1) {
+                throw TTYException();
+            }
+       }
 }
+#endif
+
 
 void TTY::Disconnect() {
 #ifndef LINUX
@@ -105,7 +145,7 @@ void TTY::Disconnect() {
 		m_Handle = INVALID_HANDLE_VALUE;
 	}
 #else
-
+    close(fd);
 #endif
 }
 
@@ -147,6 +187,21 @@ void TTY::Read(vector<unsigned char>& data, int size) {
 		data.push_back(buf[i]);
 	}
 #else
+    tcflush(fd, TCIFLUSH);
 
-#endif
+            char read_buffer[32];
+            int  bytes_read = 0;
+            int i = 0;
+
+            bytes_read = read(fd,&read_buffer,32);
+
+            printf("\n\n  Bytes Rxed -%d", bytes_read);
+            printf("\n\n  ");
+
+
+            for(i=0;i<bytes_read;i++){}
 }
+#endif
+
+
+
