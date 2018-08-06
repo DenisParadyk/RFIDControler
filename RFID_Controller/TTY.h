@@ -23,7 +23,7 @@ struct TTY {
 	void Connect(const string& port, int baudrate);
 	void Disconnect();
 
-	virtual void Write(const vector<unsigned char>& data);
+    virtual void Write(const vector<unsigned char>& data);
 	virtual void Read(vector<unsigned char>& data, int size);
 #ifndef LINUX
     HANDLE m_Handle;

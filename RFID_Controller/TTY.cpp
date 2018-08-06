@@ -146,6 +146,7 @@ void TTY::Disconnect() {
         m_Handle = INVALID_HANDLE_VALUE;
 	}
 #else
+
     close(fd);
 #endif
 }
@@ -163,7 +164,8 @@ void TTY::Write(const vector<unsigned char>& data) {
 		throw TTYException();
 	}
 #else  
-    char write_buffer[300];
+    int size;
+    char* write_buffer = new char[data.size()];
     int  bytes_written;
 
     for (int i = 0; i < data.size(); i++){
@@ -171,6 +173,7 @@ void TTY::Write(const vector<unsigned char>& data) {
     }
 
     bytes_written = write(fd,write_buffer,sizeof(write_buffer));
+    delete write_buffer;
 
 #endif
 }
@@ -196,16 +199,15 @@ void TTY::Read(vector<unsigned char>& data, int size) {
 		data.push_back(buf[i]);
 	}
 #else
-    tcflush(fd, TCIFLUSH);
 
     char read_buffer[300];
     int  bytes_read = 0;
     int i;
 
-        bytes_read = read(fd,&read_buffer,300);
+    bytes_read = read(fd,&read_buffer,300);
 
-        for(i = 0; i < bytes_read; i++){
-            data[i] = read_buffer[i];
-        }
+    for(i = 0; i < bytes_read; i++){
+        data[i] = read_buffer[i];
+    }
 }
 #endif
