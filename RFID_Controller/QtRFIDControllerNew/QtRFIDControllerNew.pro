@@ -20,7 +20,8 @@ SOURCES += \
     ../RFID.cpp \
     ../main.cpp \
     ../Db.cpp \
-    ../sqlite3.c
+    ../sqlite3.c \
+    TCPClient.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -32,7 +33,8 @@ HEADERS += \
     ../sqlite3.h \
     ../RTC.h \
     ../RFID.h \
-    ../Db.h
+    ../Db.h \
+    TCPClient.h
 INCLUDEPATH += \
 ../
 

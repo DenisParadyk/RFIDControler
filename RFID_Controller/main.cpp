@@ -12,7 +12,7 @@ int main() {
 	std::string id;
 	std::string name;
 	Db db("RFIDControler.db");
-	std::string secondname;
+    std::string secondname;
 	std::string newName;
 	std::string newSecondname;
 	std::string date;
