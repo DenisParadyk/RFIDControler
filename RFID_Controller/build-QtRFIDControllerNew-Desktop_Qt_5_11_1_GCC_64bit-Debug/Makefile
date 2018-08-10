@@ -56,14 +56,18 @@ SOURCES       = ../TTY.cpp \
 		../main.cpp \
 		../Db.cpp \
 		../sqlite3.c \
-		../QtRFIDControllerNew/TCPClient.cpp 
+		../QtRFIDControllerNew/TCPClient.cpp \
+		../QtRFIDControllerNew/Security.cpp \
+		../QtRFIDControllerNew/Sounds.cpp 
 OBJECTS       = TTY.o \
 		RTC.o \
 		RFID.o \
 		main.o \
 		Db.o \
 		sqlite3.o \
-		TCPClient.o
+		TCPClient.o \
+		Security.o \
+		Sounds.o
 DIST          = ../../../../Qt/5.11.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.11.1/gcc_64/mkspecs/common/unix.conf \
 		../../../../Qt/5.11.1/gcc_64/mkspecs/common/linux.conf \
@@ -256,13 +260,17 @@ DIST          = ../../../../Qt/5.11.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../RTC.h \
 		../RFID.h \
 		../Db.h \
-		../QtRFIDControllerNew/TCPClient.h ../TTY.cpp \
+		../QtRFIDControllerNew/TCPClient.h \
+		../QtRFIDControllerNew/Security.h \
+		../QtRFIDControllerNew/Sounds.h ../TTY.cpp \
 		../RTC.cpp \
 		../RFID.cpp \
 		../main.cpp \
 		../Db.cpp \
 		../sqlite3.c \
-		../QtRFIDControllerNew/TCPClient.cpp
+		../QtRFIDControllerNew/TCPClient.cpp \
+		../QtRFIDControllerNew/Security.cpp \
+		../QtRFIDControllerNew/Sounds.cpp
 QMAKE_TARGET  = QtRFIDControllerNew
 DESTDIR       = 
 TARGET        = QtRFIDControllerNew
@@ -668,8 +676,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/5.11.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../TTY.h ../sqlite3.h ../RTC.h ../RFID.h ../Db.h ../QtRFIDControllerNew/TCPClient.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../TTY.cpp ../RTC.cpp ../RFID.cpp ../main.cpp ../Db.cpp ../sqlite3.c ../QtRFIDControllerNew/TCPClient.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../TTY.h ../sqlite3.h ../RTC.h ../RFID.h ../Db.h ../QtRFIDControllerNew/TCPClient.h ../QtRFIDControllerNew/Security.h ../QtRFIDControllerNew/Sounds.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../TTY.cpp ../RTC.cpp ../RFID.cpp ../main.cpp ../Db.cpp ../sqlite3.c ../QtRFIDControllerNew/TCPClient.cpp ../QtRFIDControllerNew/Security.cpp ../QtRFIDControllerNew/Sounds.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -732,7 +740,10 @@ main.o: ../main.cpp ../RFID.h \
 		../RTC.h \
 		../TTY.h \
 		../Db.h \
-		../sqlite3.h
+		../sqlite3.h \
+		../QtRFIDControllerNew/Sounds.h \
+		../QtRFIDControllerNew/TCPClient.h \
+		../QtRFIDControllerNew/Security.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../main.cpp
 
 Db.o: ../Db.cpp ../Db.h \
@@ -742,8 +753,14 @@ Db.o: ../Db.cpp ../Db.h \
 sqlite3.o: ../sqlite3.c 
 	$(CC) -c $(CFLAGS) $(INCPATH) -o sqlite3.o ../sqlite3.c
 
-TCPClient.o: ../QtRFIDControllerNew/TCPClient.cpp 
+TCPClient.o: ../QtRFIDControllerNew/TCPClient.cpp ../QtRFIDControllerNew/TCPClient.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TCPClient.o ../QtRFIDControllerNew/TCPClient.cpp
+
+Security.o: ../QtRFIDControllerNew/Security.cpp ../QtRFIDControllerNew/Security.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Security.o ../QtRFIDControllerNew/Security.cpp
+
+Sounds.o: ../QtRFIDControllerNew/Sounds.cpp ../QtRFIDControllerNew/Sounds.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Sounds.o ../QtRFIDControllerNew/Sounds.cpp
 
 ####### Install
 

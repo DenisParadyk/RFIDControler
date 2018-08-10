@@ -2,7 +2,7 @@
 
 const char *sqlCreateTable[2] = {
 	"CREATE TABLE IF NOT EXISTS RFIDControler (id INTEGER PRIMARY KEY, name STRING, secondname STRING, date STRING, time STRING);",
-	"CREATE TABLE IF NOT EXISTS Information (id INTEGER PRIMARY KEY, idNrf STRING, name STRING, secondname STRING);"};//TEXT
+    "CREATE TABLE IF NOT EXISTS Information (id INTEGER PRIMARY KEY, idNrf STRING, name STRING, secondname STRING, login STRING, password STRING);"};
 
 Db::Db(string db)
 {
@@ -20,7 +20,7 @@ DbError Db::open()
 	if (rc && !db)
 	{
 		sqlite3_close(db);
-		return DbErrorOpenDb;
+        return DbErrorOpenDb;
 	}
 
 	return DbErrorOk;
@@ -45,7 +45,7 @@ DbError Db::create()
 	return DbErrorOk;
 }
 
-DbError Db::subFunc(string id, string name, string secondname)
+DbError Db::subFunc(string id, string name, string secondname, string login, string password)
 {
 	char *error;
 	int rc;
@@ -60,6 +60,10 @@ DbError Db::subFunc(string id, string name, string secondname)
 	sqlInsert += name;
 	sqlInsert += "','";
 	sqlInsert += secondname;
+    sqlInsert += "','";
+    sqlInsert += login;
+    sqlInsert += "','";
+    sqlInsert += password;
 	sqlInsert += "');";
 
 	rc = sqlite3_exec(db, sqlInsert.c_str(), NULL, NULL, &error);
@@ -74,7 +78,7 @@ DbError Db::subFunc(string id, string name, string secondname)
 }
 
  
-DbError Db::select(string id, string &name, string &secondname)
+DbError Db::select(string id, string &name, string &secondname, string& login, string& password)
 {
     string table;
 	char *error;
@@ -84,7 +88,10 @@ DbError Db::select(string id, string &name, string &secondname)
 	string sqlInsert = "SELECT * FROM ";
 	sqlInsert += "Information WHERE idNrf = '";
 	sqlInsert += id;
-	sqlInsert += "'";
+    sqlInsert += "'";
+    sqlInsert += "Information WHERE login = '";
+    sqlInsert += login;
+    sqlInsert += "'";
 
 	if (sqlite3_prepare_v2(db, sqlInsert.c_str(), -1, &ppStmt, NULL) != SQLITE_OK)
 	{
@@ -103,10 +110,10 @@ DbError Db::select(string id, string &name, string &secondname)
 			break;
 		case SQLITE_TEXT:    
 			
-			
 			cout << sqlite3_column_text(ppStmt, jj) << endl;
 			name = (char*)sqlite3_column_text(ppStmt, 2);
 			secondname = (char*)sqlite3_column_text(ppStmt, 3);
+            password = (char*)sqlite3_column_text(ppStmt, 5);
 
 			break;
 		case SQLITE_BLOB:    cout << "BLOB " << endl;

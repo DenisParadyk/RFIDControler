@@ -22,8 +22,8 @@ public:
 	DbError open();
 	DbError create();
 	DbError mainFunc(string name, string secondname, string date, string time);
-	DbError subFunc(string id, string name, string secondname);
-	DbError select(string id, string& name, string& secondname);
+    DbError subFunc(string id, string name, string secondname, string login, string password);
+    DbError select(string id, string& name, string& secondname, string& login, string& password);
 private:
 	string dbName;
 	sqlite3 *db;

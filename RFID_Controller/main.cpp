@@ -4,48 +4,45 @@
 #include "TTY.h" 
 #include "RTC.h"
 #include "Db.h"
+#include "Sounds.h"
 #include "TCPClient.h"
+#include "Security.h"
 
 using namespace std;
 
 int main() {
-	int port;
-	setlocale(0, "");
-	std::string id;
-	std::string name;
-	Db db("RFIDControler.db");
-    std::string secondname;
-	std::string newName;
-	std::string newSecondname;
-	std::string date;
-	std::string time;
-    unsigned short size;
-    TCPClient tcp("10.0.2.15", 9999);
-    char buff[4] = "abc";
-    char buffS[100];
-	RtcDate dt;
-	RtcTime tm;
-	RTC rtc;
-	
-    tcp.Connect();
 
-	cout << "Enter COMport" << endl;
-    cin >> port;
+	int port;
+    setlocale(0, "");
+    std::string id;
+	std::string name;
+    std::string secondname;
+    std::string newName;
+    std::string newSecondname;
+    std::string date;
+    std::string time;
+    std::string login;
+    std::string password;
+    std::string newLogin;
+    std::string newPassword;
+    Security valid_pass;
+    Sounds beep;
+    RtcDate dt;
+    RtcTime tm;
+    RTC rtc;
+
+    port = 0;
 	RFID a(port);
 
+    Db db("RFIDControler.db");
 	db.open();
 	db.create();
 
 	while (1) {
+
 		id = a.runID();
 
-        tcp.write(buff, 4);
-        sleep(1);
-        tcp.read(buffS, size, sizeof(buffS));
-
-        for(int i = 0; i < buffS[i]; i++) { cout << buffS << endl; }
-
-		dt = rtc.getDate();
+        dt = rtc.getDate();
 		tm = rtc.getTime();
 
 		date = to_string(dt.day);
@@ -63,18 +60,44 @@ int main() {
 		name.erase();
 		secondname.erase();
 
-		if (id.length() != 0) {
-			db.select(id, name, secondname);
-            if (name.length() == 0 && secondname.length() == 0) {
-				cout << "Enter new name" << endl;
+        if (id.length() != 0) {
+
+            beep.playActivate();
+
+            db.select(id, name, secondname, login, password);
+
+            if (name.length() == 0  ) {
+
+                beep.playNotFound();
+                cout << "New user detected\n" << "Enter LogIn : ";
+                cin >> newLogin;
+                cout << "Enter new password : ";
+                cin >> newPassword;
+                cout << endl;
+                cout << "Enter new name : ";
 				cin >> newName;
-				cout << "Enter new secondname" << endl;
+                cout << endl;
+                cout << "Enter new secondname : ";
 				cin >> newSecondname;
+                cout << endl;
 				name = newName;
 				secondname = newSecondname;
-			    db.subFunc(id, name, secondname);
-			} else {
-				db.mainFunc(name, secondname, date, time);
+                login = newLogin;
+                password = newPassword;
+
+                beep.playNewCard();
+                db.subFunc(id, name, secondname, login, password);
+
+            } else {
+
+                cout << " Enter LogIn : ";
+                cin >> login;
+                cout << endl;
+
+                beep.playOpen();
+
+                valid_pass.check_pass(password);
+                db.mainFunc(name, secondname, date, time);
 			}
 		}
 	}
