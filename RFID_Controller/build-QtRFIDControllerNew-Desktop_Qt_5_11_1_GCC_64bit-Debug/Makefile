@@ -12,7 +12,7 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DLINUX -DQT_QML_DEBUG -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DLINUX -DTEST_WITHOUT_RFID -DQT_QML_DEBUG -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 INCPATH       = -I../QtRFIDControllerNew -I. -I../../RFID_Controller -I../../../../Qt/5.11.1/gcc_64/include -I../../../../Qt/5.11.1/gcc_64/include/QtCore -I. -I../../../../Qt/5.11.1/gcc_64/mkspecs/linux-g++
@@ -237,7 +237,6 @@ DIST          = ../../../../Qt/5.11.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.11.1/gcc_64/mkspecs/features/qt_config.prf \
 		../../../../Qt/5.11.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../../Qt/5.11.1/gcc_64/mkspecs/features/spec_post.prf \
-		../QtRFIDControllerNew/.qmake.stash \
 		../../../../Qt/5.11.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/5.11.1/gcc_64/mkspecs/features/toolchain.prf \
 		../../../../Qt/5.11.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -451,7 +450,6 @@ Makefile: ../QtRFIDControllerNew/QtRFIDControllerNew.pro ../../../../Qt/5.11.1/g
 		../../../../Qt/5.11.1/gcc_64/mkspecs/features/qt_config.prf \
 		../../../../Qt/5.11.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../../Qt/5.11.1/gcc_64/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		../../../../Qt/5.11.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/5.11.1/gcc_64/mkspecs/features/toolchain.prf \
 		../../../../Qt/5.11.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -641,7 +639,6 @@ Makefile: ../QtRFIDControllerNew/QtRFIDControllerNew.pro ../../../../Qt/5.11.1/g
 ../../../../Qt/5.11.1/gcc_64/mkspecs/features/qt_config.prf:
 ../../../../Qt/5.11.1/gcc_64/mkspecs/linux-g++/qmake.conf:
 ../../../../Qt/5.11.1/gcc_64/mkspecs/features/spec_post.prf:
-.qmake.stash:
 ../../../../Qt/5.11.1/gcc_64/mkspecs/features/exclusive_builds.prf:
 ../../../../Qt/5.11.1/gcc_64/mkspecs/features/toolchain.prf:
 ../../../../Qt/5.11.1/gcc_64/mkspecs/features/default_pre.prf:

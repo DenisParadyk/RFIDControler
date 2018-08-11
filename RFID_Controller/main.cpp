@@ -32,7 +32,7 @@ int main() {
     RTC rtc;
 
     port = 0;
-	RFID a(port);
+    RFID a(port);
 
     Db db("RFIDControler.db");
 	db.open();
@@ -40,7 +40,7 @@ int main() {
 
 	while (1) {
 
-		id = a.runID();
+        id = a.runID();
 
         dt = rtc.getDate();
 		tm = rtc.getTime();

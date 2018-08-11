@@ -3,14 +3,16 @@
 
 RFID::RFID(int port)
 {
+#ifndef TEST_WITHOUT_RFID
     tty.Connect(to_string(port), 9600);
+#endif
 }
 
 string RFID::runID() {
 
-	string id;
-
-	std::vector<unsigned char> the_vectsor;;
+    string id;
+#ifndef TEST_WITHOUT_RFID
+    std::vector<unsigned char> the_vectsor;;
 	tty.Read(the_vectsor, 50);
 
 	for (int i = 0; i < the_vectsor.size(); i++) {
@@ -26,5 +28,9 @@ string RFID::runID() {
 			id = (char*)&the_vectsor[1];
 		}
 	}
+#else
+    cout << "Put RFID number :" << endl;
+    cin >> id;
+#endif
 	return id;
 }

@@ -2,7 +2,7 @@
 
 const char *sqlCreateTable[2] = {
 	"CREATE TABLE IF NOT EXISTS RFIDControler (id INTEGER PRIMARY KEY, name STRING, secondname STRING, date STRING, time STRING);",
-    "CREATE TABLE IF NOT EXISTS Information (id INTEGER PRIMARY KEY, idNrf STRING, name STRING, secondname STRING, login STRING, password STRING);"};
+    "CREATE TABLE IF NOT EXISTS Information(id INTEGER PRIMARY KEY, idNrf STRING, name STRING, secondname STRING, login STRING, password STRING);"};
 
 Db::Db(string db)
 {
@@ -89,9 +89,6 @@ DbError Db::select(string id, string &name, string &secondname, string& login, s
 	sqlInsert += "Information WHERE idNrf = '";
 	sqlInsert += id;
     sqlInsert += "'";
-    sqlInsert += "Information WHERE login = '";
-    sqlInsert += login;
-    sqlInsert += "'";
 
 	if (sqlite3_prepare_v2(db, sqlInsert.c_str(), -1, &ppStmt, NULL) != SQLITE_OK)
 	{
@@ -113,6 +110,7 @@ DbError Db::select(string id, string &name, string &secondname, string& login, s
 			cout << sqlite3_column_text(ppStmt, jj) << endl;
 			name = (char*)sqlite3_column_text(ppStmt, 2);
 			secondname = (char*)sqlite3_column_text(ppStmt, 3);
+            login = (char*)sqlite3_column_text(ppStmt, 4);
             password = (char*)sqlite3_column_text(ppStmt, 5);
 
 			break;
