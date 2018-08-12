@@ -23,7 +23,8 @@ SOURCES += \
     ../sqlite3.c \
     TCPClient.cpp \
     Security.cpp \
-    Sounds.cpp
+    Sounds.cpp \
+    HTTProtocol.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -38,7 +39,8 @@ HEADERS += \
     ../Db.h \
     TCPClient.h \
     Security.h \
-    Sounds.h
+    Sounds.h \
+    HTTProtocol.h
 INCLUDEPATH += \
 ../
 
